@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import getImageForPost from '../utils/get-image-for-post';
 
 import './Post.css';
@@ -23,5 +24,29 @@ export default function Post({
         </Col>
       </Row>
     </Container>
+  )
+}
+
+export function PostWrapper() {
+  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState({ content: '', title: '', index: 0});
+
+  // To be used for fetching data 
+  const { postIndex } = useParams();
+
+  useEffect(() => {
+    // mock
+    setPost({ content: 'This is a mock post', title: 'Mock Post Title', index: postIndex });
+    setLoading(true);
+  }, []);
+
+  return (
+    loading ?
+      <Post
+        index={post.index}
+        post={post.content}
+        title={post.title}
+      /> :
+      <div>Loading...</div>
   )
 }
