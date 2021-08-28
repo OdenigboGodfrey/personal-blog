@@ -10,6 +10,8 @@ const Template = (args) => <CreatePostModal {...args}/>;
 
 export const CreatePostModalStory = Template.bind({});
 CreatePostModalStory.args = {
+  onChange: undefined,
   onClose: undefined,
+  onSubmit: event => event.preventDefault(),
   show: true
 };
