@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import CreatePostModal from './create-post-modal/CreatePostModal';
 import getImageForPost from '../utils/get-image-for-post';
 
@@ -54,6 +55,7 @@ function PostMetadata({
   postIndex,
   title
 }) {
+  const history = useHistory();
   const postImage = getImageForPost(postIndex);
 
   return (
@@ -61,7 +63,7 @@ function PostMetadata({
       <Card.Img variant="top" src={postImage}/>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Button variant="primary">Read Post</Button>
+        <Button variant="primary" onClick={() => history.push(`/post/${postIndex}`)}>Read Post</Button>
       </Card.Body>
     </Card>
   );
