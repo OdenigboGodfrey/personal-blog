@@ -9,9 +9,8 @@ export function Home({
   return (
     <div className="home">
       <Container fluid>
-        <Row style={{ marginBottom: '10px;' }}>
-          <Col>
-            <h2>Welcome!</h2>
+        <Row style={{ marginBottom: "10px;" }}>
+          <Col className="home-top-section">
           </Col>
         </Row>
         <Row>
