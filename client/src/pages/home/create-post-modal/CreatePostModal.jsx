@@ -8,7 +8,7 @@ export default function CreatePostModal({
   show
 }) {
   return (
-    <Modal show={show}>
+    <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton onClick={onClose}>
         <Modal.Title>Modal title</Modal.Title>
       </Modal.Header>
