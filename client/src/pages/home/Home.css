@@ -1,6 +1,5 @@
-.home {
-  margin: 0 auto;
-  max-width: 992px;
+.home .card-img-top {
+  height: 180px;  /* Make the height the same for all */
 }
 
 .home-button-header-container {
