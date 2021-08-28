@@ -9,7 +9,7 @@ export function Home({
 }) {
   return (
     <div className="home">
-      <Container fluid>
+      <Container fluid="lg">
         <Row>
           <Col className="home-top-section">
             <div className="home-top-section-overlay"></div>
