@@ -10,7 +10,7 @@ export function Home({
   return (
     <div className="home">
       <Container fluid>
-        <Row style={{ marginBottom: "10px;" }}>
+        <Row>
           <Col className="home-top-section">
             <div className="home-top-section-overlay"></div>
             <div className="home-button-header-container">
@@ -25,15 +25,16 @@ export function Home({
             <h2>Posts</h2>
           </Col>
         </Row>
-        {postTitles.length > 0 ?
-          postTitles.map((title, index) => (
-            <PostMetadata
-              key={index}
-              title={title}
-            />
-          )) :
-          <div>No posts yet.  =(</div>
-        }
+        <Row>
+          {postTitles.map((title, index) => (
+            <Col style={{ marginBottom: '10px' }}>
+              <PostMetadata
+                key={index}
+                title={title}
+              />
+            </Col>
+          ))}
+        </Row>
       </Container>
     </div>
   );
@@ -42,11 +43,19 @@ export function Home({
 function PostMetadata({
   title
 }) {
+  const postImages = [
+    "https://decentralized-mvp.s3.amazonaws.com/blog/post-photo-1.jpg",
+    "https://decentralized-mvp.s3.amazonaws.com/blog/post-photo-2.jpg",
+    "https://decentralized-mvp.s3.amazonaws.com/blog/post-photo-3.jpg"
+  ];
+  const postImageIndex = Math.floor(Math.random() * postImages.length); // random
+
   return (
     <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={postImages[postImageIndex]}/>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Button variant="danger">Read Post</Button>
+        <Button variant="primary">Read Post</Button>
       </Card.Body>
     </Card>
   );
