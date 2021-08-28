@@ -7,12 +7,33 @@ import './Home.css';
 export function Home({
   postTitles
 }) {
+  const [createPostForm, setCreatePostForm] = useState({ post: '', postTitle: '' });
   const [modalVisible, setModalVisible] = useState(false);
+
+  /**
+   * @description On change handler for post modal
+   * @param {Object} event
+   */
+  function onChange(event) {
+    const { target } = event;
+    setCreatePostForm(previousState => ({ ...previousState, [target.name]: target.value }));
+  }
+
+  /**
+   * @description Submit handler for new post
+   * @param {Object} event 
+   */
+  function onSubmit(event) {
+    event.preventDefault();
+    console.log(createPostForm);
+  }
 
   return (
     <Container fluid="lg" className="home">
       <CreatePostModal
+        onChange={onChange}
         onClose={() => setModalVisible(false)}
+        onSubmit={onSubmit}
         show={modalVisible}
       />
       <Row>
