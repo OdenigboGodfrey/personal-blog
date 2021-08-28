@@ -32,9 +32,8 @@ export function Home({
       </Row>
       <Row>
         {postTitles.map((title, index) => (
-          <Col style={{ marginBottom: '10px' }}>
+          <Col key={index} style={{ marginBottom: '10px' }}>
             <PostMetadata
-              key={index}
               postIndex={index}
               title={title}
             />
