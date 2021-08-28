@@ -16,6 +16,7 @@ HomeStory.args = {
   postTitles: [
     'First Post',
     'Second Post',
-    'Third Post'
+    'Third Post',
+    'Fourth Post'
   ]
 };
