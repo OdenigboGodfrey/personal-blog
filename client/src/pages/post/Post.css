@@ -1,0 +1,8 @@
+/* Repeat of what is in Home */
+.post .image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 250px;
+  width: 100%;
+}
