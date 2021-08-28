@@ -1,42 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import CreatePostModal from './create-post-modal/CreatePostModal';
 
 import './Home.css';
 
 export function Home({
-  onCreatePost,
   postTitles
 }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <div className="home">
-      <Container fluid="lg">
-        <Row>
-          <Col className="home-top-section">
-            <div className="home-top-section-overlay"></div>
-            <div className="home-button-header-container">
-              <h2>Welcome to the Blockchain Blog</h2>
-              <p>A decentralized blog running on the blockchain.</p>
-              <Button onClick={onCreatePost} variant="primary">Create Post</Button>
-            </div>
+    <Container fluid="lg" className="home">
+      <CreatePostModal
+        onClose={() => setModalVisible(false)}
+        show={modalVisible}
+      />
+      <Row>
+        <Col className="home-top-section">
+          <div className="home-top-section-overlay"></div>
+          <div className="home-button-header-container">
+            <h2>Welcome to the Blockchain Blog</h2>
+            <p>A decentralized blog running on the blockchain.</p>
+            <Button onClick={() => setModalVisible(true)} variant="primary">Create Post</Button>
+          </div>
+        </Col>
+      </Row>
+      <Row style={{ marginTop: '20px' }}>
+        <Col>
+          <h2>Posts</h2>
+        </Col>
+      </Row>
+      <Row>
+        {postTitles.map((title, index) => (
+          <Col style={{ marginBottom: '10px' }}>
+            <PostMetadata
+              key={index}
+              title={title}
+            />
           </Col>
-        </Row>
-        <Row style={{ marginTop: '20px' }}>
-          <Col>
-            <h2>Posts</h2>
-          </Col>
-        </Row>
-        <Row>
-          {postTitles.map((title, index) => (
-            <Col style={{ marginBottom: '10px' }}>
-              <PostMetadata
-                key={index}
-                title={title}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </div>
+        ))}
+      </Row>
+    </Container>
   );
 }
 
