@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import { HomeWrapper as Home } from './pages/home/Home';
 import NoMatch from './pages/no-match/NoMatch';
 
 function App() {
