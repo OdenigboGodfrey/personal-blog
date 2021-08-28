@@ -4,6 +4,7 @@ import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import './Home.css';
 
 export function Home({
+  onCreatePost,
   postTitles
 }) {
   return (
@@ -15,7 +16,7 @@ export function Home({
             <div className="home-button-header-container">
               <h2>Welcome to the Blockchain Blog</h2>
               <p>A decentralized blog running on the blockchain.</p>
-              <Button variant="primary">Create Post</Button>
+              <Button onClick={onCreatePost} variant="primary">Create Post</Button>
             </div>
           </Col>
         </Row>
