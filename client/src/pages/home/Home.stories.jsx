@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Home } from './Home';
 
 export default {
@@ -6,10 +6,21 @@ export default {
   component: Home
 };
 
-const Template = (args) => <Home {...args}/>;
+const Template = (args) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  args = { ...args, modalVisible, closeModal: () => setModalVisible(false), openModal: () => setModalVisible(true) };
+
+  return <Home {...args}/>;
+};
 
 export const HomeStory = Template.bind({});
 HomeStory.args = {
+  // closeModal, (defined above)
+  onChange: undefined,
+  onSubmit: event => event.preventDefault(),
+  // modalVisible, (defined above)
+  // openModal, (defined above)
   postTitles: [
     'First Post',
     'Second Post',
