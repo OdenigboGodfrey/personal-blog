@@ -11,12 +11,11 @@ export function Home({
       <Container fluid>
         <Row style={{ marginBottom: "10px;" }}>
           <Col className="home-top-section">
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <div className="d-grid gap-2">
-              <Button variant="danger" size="lg">Share New Post</Button>
+            <div className="home-top-section-overlay"></div>
+            <div className="home-button-header-container">
+              <h2>Welcome to the Blockchain Blog</h2>
+              <p>A decentralized blog running on the blockchain.</p>
+              <Button variant="primary">Create Post</Button>
             </div>
           </Col>
         </Row>
