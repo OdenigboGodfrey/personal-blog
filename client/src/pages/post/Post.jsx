@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import AppContext from '../../appContext';
 import getImageForPost from '../utils/get-image-for-post';
 
 import './Post.css';
@@ -31,17 +32,33 @@ export function PostWrapper() {
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState({ content: '', title: '', index: 0});
 
+  // const { dependencies } = useContext(AppContext);
+  // const { blog } = dependencies;
+
   // To be used for fetching data 
   const { postIndex } = useParams();
 
   useEffect(() => {
-    // mock
-    setPost({ content: 'This is a mock post', title: 'Mock Post Title', index: postIndex });
-    setLoading(true);
+    (async function() {
+      setPost(await getPost());
+      setLoading(false);
+    })();
   }, []);
 
+  /**
+   * @description wrapper for getting posts
+   * @returns {Object}
+   */
+  async function getPost() {
+    return new Promise(resolve => {
+      resolve({ content: 'This is a mock post', title: 'Mock Post Title', index: postIndex });
+    });
+    // const [title, content, index] = await blog.methods.getPost(postIndex).call();
+    // return { title, content, index };
+  }
+
   return (
-    loading ?
+    !loading ?
       <Post
         index={post.index}
         post={post.content}
