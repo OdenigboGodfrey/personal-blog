@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import AppContext from '../../appContext';
 import CreatePostModal from './create-post-modal/CreatePostModal';
 import getImageForPost from '../utils/get-image-for-post';
 
@@ -12,7 +13,7 @@ export function Home({
   onSubmit,
   modalVisible,
   openModal,
-  postTitles
+  posts
 }) {
   return (
     <Container fluid="lg" className="home">
@@ -38,11 +39,11 @@ export function Home({
         </Col>
       </Row>
       <Row>
-        {postTitles.map((title, index) => (
-          <Col key={index} style={{ marginBottom: '10px' }}>
+        {posts.map((post) => (
+          <Col key={post.id} style={{ marginBottom: '10px' }}>
             <PostMetadata
-              postIndex={index}
-              title={title}
+              postIndex={post.id}
+              title={post.title}
             />
           </Col>
         ))}
@@ -73,8 +74,52 @@ export function HomeWrapper() {
   const [createPostForm, setCreatePostForm] = useState({ post: '', postTitle: '' });
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  // posts' titles
   const [posts, setPosts] = useState([]);
+
+  // const { dependencies } = useContext(AppContext);
+  // const { blog, account } = dependencies;
+
+  // const history = useHistory();
+
+  useEffect(() => {
+    (async function() {
+      // setupCreatePostListener();
+      setPosts(await getPosts());
+      setLoading(true);
+    })();
+  }, []);
+
+  /**
+   * @description Hack for constructing the "posts"
+   * array, which is the array used for this component's state
+   * (i.e. posts). This is needed since the back-end
+   * returns two separate arrays for home data.
+   * @param {Array<Array>} homeData
+   * @return {Array<Object>}
+   */
+  // function constructPostsArray(homeData) {
+  //   const updatedPostArray = [];
+  //   const postIds = homeData[0];
+  //   const postTitles = homeData[1];
+  //   const numPosts = postIds.length;
+
+  //   for (let i = 0; i < numPosts; i++) {
+  //     updatedPostArray.push({ title: postTitles[i], id: postIds[i] });
+  //   }
+
+  //   return updatedPostArray;
+  // }
+
+  /**
+   * @description Function used to get the posts
+   */
+  async function getPosts() {
+    return new Promise(resolve => {
+      resolve([{ title: 'First Post', id: 0 }, { title: 'Second Post', id: 1 }, { title: 'Third Post', id: 2 }, { title: 'Fourth Post', id: 3 }]);
+    });
+    // const homeData = await blog.methods.getHomeData().call();
+    // return constructPostsArray(homeData);
+  }
 
   /**
    * @description On change handler for post modal
@@ -89,18 +134,24 @@ export function HomeWrapper() {
    * @description Submit handler for new post
    * @param {Object} event 
    */
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    console.log(createPostForm);
+    const { post, postTitle } = createPostForm;
+    
+    console.log(post, postTitle);
+    
+    // await blog.methods.createPost(postTitle, post).send({ from: account });
   }
 
-  useEffect(() => {
-    (async function() {
-      // mock
-      setPosts(['First Post', 'Second Post', 'Third Post', 'Fourth Post']);
-      setLoading(true);
-    })();
-  }, []);
+  /**
+   * @description Setup the create post listener
+   */
+  // function setupCreatePostListener() {
+  //   blog.events.PostCreated({}, (error, contractEvent) => {
+  //     const { id } = contractEvent.returnValues;
+  //     history.push(`/post/${id}`);
+  //   });
+  // }
 
   return (
     loading ?
@@ -110,7 +161,7 @@ export function HomeWrapper() {
         onSubmit={onSubmit}
         modalVisible={modalVisible}
         openModal={() => setModalVisible(true)}
-        postTitles={posts}
+        posts={posts}
       /> :
       <div>loading...</div>
   );
