@@ -64,7 +64,7 @@ function App() {
                   <NoMatch/>
                 </Route>
               </Switch> :
-              <Button onClick={connect}></Button>
+              <Button onClick={connect}>Connect</Button>
           ) : 
           <div>loading....</div>
         }
