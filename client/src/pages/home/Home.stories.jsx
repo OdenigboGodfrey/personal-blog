@@ -21,7 +21,7 @@ HomeStory.args = {
   onSubmit: event => event.preventDefault(),
   // modalVisible, (defined above)
   // openModal, (defined above)
-  postTitles: [
+  posts: [
     'First Post',
     'Second Post',
     'Third Post',
